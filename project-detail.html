@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Monica Portfolio | Project</title>
+
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="mystyle.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+
+<body id="top">
+
+  <!-- NAVBAR -->
+  <nav class="navbar navbar-expand-lg navbar-light sticky-top">
+    <div class="container">
+      <a class="navbar-brand d-flex align-items-center" href="index.html">
+        <img src="images/logo3.png" class="logo me-2" alt="Logo">
+        <span class="logo-text">Creative designs</span>
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav" aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="mainNav">
+        <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+          <li class="nav-item"><a class="nav-link" href="index.html#home">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="index.html#about">About</a></li>
+          <li class="nav-item"><a class="nav-link" href="index.html#services">Services</a></li>
+          <li class="nav-item"><a class="nav-link active" href="projects.html">Projects</a></li>
+          <li class="nav-item"><a class="nav-link" href="testimonials.html">Testimonials</a></li>
+          <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+        </ul>
+        <a href="collaborate.html" class="btn btn-sm btn-cta">Let's Collaborate</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- BREADCRUMB + HERO -->
+  <section class="project-detail-hero">
+    <div class="container">
+      <a href="projects.html" class="detail-back-link"><i class="fas fa-arrow-left"></i> Back to Projects</a>
+      <span class="detail-category-badge" id="detail-category"></span>
+      <h1 class="project-detail-title" id="detail-title"></h1>
+    </div>
+  </section>
+
+  <!-- MAIN IMAGE + DESCRIPTION -->
+  <section class="project-detail-main">
+    <div class="container">
+
+      <div class="project-detail-img-wrap">
+        <img id="detail-main-image" src="" alt="" class="project-detail-main-img">
+      </div>
+
+      <div class="project-detail-desc">
+        <p id="detail-description"></p>
+      </div>
+
+      <!-- 2 GALLERY CARDS -->
+      <div class="project-detail-section-title">
+        <h2>Project Gallery</h2>
+        <p>More visuals from this project</p>
+      </div>
+      <div class="project-detail-gallery">
+        <div class="detail-gallery-card">
+          <img id="detail-img-1" src="" alt="">
+        </div>
+        <div class="detail-gallery-card">
+          <img id="detail-img-2" src="" alt="">
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- WE BUILD BRANDS SECTION -->
+  <section class="end-contact-idea">
+    <div class="container">
+      <div class="end-contact-header">
+        <h2>We Build Brands That Feel Better Together.</h2>
+      </div>
+      <div class="end-contact-card">
+        <div class="end-contact-brand">
+          <img src="images/logo3.png" alt="Creative designs logo">
+          <h3>Creative designs</h3>
+          <p>Hello there. Let's create a clear, modern brand experience that truly reflects your vision.</p>
+          <a href="contact.html" class="btn btn-custom">Get in Touch</a>
+        </div>
+        <form class="end-contact-form" action="contact.html">
+          <label>First and Last Name*
+            <input type="text" name="fullName" placeholder="Your full name">
+          </label>
+          <label>Email*
+            <input type="email" name="email" placeholder="Your email">
+          </label>
+          <label>What kind of design magic are you looking for?
+            <select name="service">
+              <option>Brand Identity</option>
+              <option>Website Design</option>
+              <option>UX/UI Design</option>
+              <option>Other</option>
+            </select>
+          </label>
+          <label>Your Message
+            <textarea name="message" rows="4" placeholder="Tell me about your project"></textarea>
+          </label>
+          <button type="submit" class="btn end-contact-btn">Get at Me</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- SCROLL TO TOP -->
+  <a href="#top" class="scroll-to-top"><i class="fas fa-arrow-up"></i></a>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4">
+          <h5>Monica Portfolio</h5>
+          <p>Let's create a brand that speaks clearly and stands confidently</p>
+          <div class="social-links">
+            <a href="https://www.facebook.com/moniramsis"><i class="fab fa-facebook"></i></a>
+            <a href="https://www.instagram.com/creative.designs_1/?hl=en"><i class="fab fa-instagram"></i></a>
+            <a href="https://www.linkedin.com/in/monica-demian-070789129/"><i class="fab fa-linkedin"></i></a>
+            <a href="https://www.behance.net/monicarams6a24"><i class="fab fa-behance"></i></a>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <h5>Contact Information</h5>
+          <div class="contact-detail">
+            <div class="contact-item">
+              <i class="fas fa-phone"></i>
+              <div>
+                <p class="contact-label">Phone</p>
+                <p class="contact-value">0894545503</p>
+              </div>
+            </div>
+          </div>
+          <div class="contact-detail">
+            <div class="contact-item">
+              <i class="fas fa-map-marker-alt"></i>
+              <div>
+                <p class="contact-label">Address</p>
+                <p class="contact-value">15 the drive belinwood, Newbridge, Kildare, Ireland</p>
+              </div>
+            </div>
+          </div>
+          <div class="contact-detail">
+            <div class="contact-item">
+              <i class="fas fa-envelope"></i>
+              <div>
+                <p class="contact-label">Email</p>
+                <p class="contact-value">monica.ramsis1@gmail.com</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <h5>Search</h5>
+          <div class="search-form">
+            <input type="text" class="form-control" placeholder="Search...">
+            <button class="btn btn-search mt-2">Search</button>
+          </div>
+        </div>
+      </div>
+      <div class="text-center mt-4">
+        <p>© 2026 Monica Portfolio. Proudly powered by Monica and Bootstrap.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1.0.5/bundled/lenis.min.js"></script>
+  <script src="js/projects-data.js"></script>
+  <script src="script.js"></script>
+  <script>
+    // Load project content from URL parameter
+    var params = new URLSearchParams(window.location.search);
+    var id = parseInt(params.get('id'));
+    var project = projectsData.find(function (p) { return p.id === id; });
+
+    if (!project) {
+      window.location.href = 'projects.html';
+    } else {
+      document.title = 'Monica Portfolio | ' + project.title;
+      document.getElementById('detail-category').textContent = project.category;
+      document.getElementById('detail-title').textContent = project.title;
+
+      var mainImg = document.getElementById('detail-main-image');
+      mainImg.src = project.image;
+      mainImg.alt = project.title;
+
+      document.getElementById('detail-description').textContent = project.description;
+
+      var img1 = document.getElementById('detail-img-1');
+      img1.src = project.detailImage1;
+      img1.alt = project.title + ' — view 1';
+
+      var img2 = document.getElementById('detail-img-2');
+      img2.src = project.detailImage2;
+      img2.alt = project.title + ' — view 2';
+    }
+  </script>
+</body>
+</html>
