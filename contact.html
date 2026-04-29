@@ -71,24 +71,86 @@
           </div>
         </div>
         <div class="col-lg-6">
-          <form>
-            <div class="mb-3">
-              <label for="name" class="form-label">Your Name</label>
-              <input type="text" class="form-control" id="name" placeholder="Enter your name">
+          <form id="contactForm" class="contact-form" name="contact" method="POST" action="/contact-success.html" data-netlify="true" data-netlify-honeypot="bot-field" novalidate>
+            <input type="hidden" name="form-name" value="contact">
+            <p class="d-none">
+              <label for="bot-field">Do not fill this out if you are human:</label>
+              <input id="bot-field" name="bot-field" autocomplete="off">
+            </p>
+
+            <div class="row g-3">
+              <div class="col-md-6">
+                <label for="fullName" class="form-label">Full Name</label>
+                <input type="text" class="form-control" id="fullName" name="fullName" placeholder="Enter your full name" required minlength="2" maxlength="80" autocomplete="name">
+                <div class="invalid-feedback">Please enter your full name.</div>
+              </div>
+              <div class="col-md-6">
+                <label for="email" class="form-label">Email Address</label>
+                <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email" required maxlength="120" autocomplete="email">
+                <div class="invalid-feedback">Please enter a valid email address.</div>
+              </div>
+
+              <div class="col-md-6">
+                <label for="phone" class="form-label">Phone Number</label>
+                <input type="tel" class="form-control" id="phone" name="phone" placeholder="e.g. +353 89 123 4567" required pattern="^[0-9+()\-\s]{7,20}$" maxlength="20" autocomplete="tel">
+                <div class="invalid-feedback">Please enter a valid phone number.</div>
+              </div>
+              <div class="col-md-6">
+                <label for="company" class="form-label">Company / Brand</label>
+                <input type="text" class="form-control" id="company" name="company" placeholder="Your company or brand name" maxlength="120" autocomplete="organization">
+              </div>
+
+              <div class="col-md-6">
+                <label for="service" class="form-label">Service Needed</label>
+                <select class="form-select" id="service" name="service" required>
+                  <option value="">Select a service</option>
+                  <option value="ui-ux">UI/UX Design</option>
+                  <option value="branding">Branding & Identity</option>
+                  <option value="web-design">Web Design</option>
+                  <option value="print-design">Print Design</option>
+                  <option value="mobile-app">Mobile App Design</option>
+                  <option value="other">Other</option>
+                </select>
+                <div class="invalid-feedback">Please select a service.</div>
+              </div>
+              <div class="col-md-6">
+                <label for="budget" class="form-label">Estimated Budget</label>
+                <select class="form-select" id="budget" name="budget" required>
+                  <option value="">Select a budget range</option>
+                  <option value="under-1k">Under EUR 1,000</option>
+                  <option value="1k-3k">EUR 1,000 - 3,000</option>
+                  <option value="3k-5k">EUR 3,000 - 5,000</option>
+                  <option value="5k-plus">EUR 5,000+</option>
+                </select>
+                <div class="invalid-feedback">Please select your budget range.</div>
+              </div>
+
+              <div class="col-md-6">
+                <label for="timeline" class="form-label">Project Timeline</label>
+                <input type="text" class="form-control" id="timeline" name="timeline" placeholder="e.g. 4-6 weeks" required maxlength="60">
+                <div class="invalid-feedback">Please provide your timeline.</div>
+              </div>
+              <div class="col-md-6">
+                <label for="subject" class="form-label">Subject</label>
+                <input type="text" class="form-control" id="subject" name="subject" placeholder="Enter subject" required minlength="3" maxlength="120">
+                <div class="invalid-feedback">Please add a subject.</div>
+              </div>
+
+              <div class="col-12">
+                <label for="message" class="form-label">Project Details</label>
+                <textarea class="form-control" id="message" name="message" rows="5" placeholder="Tell me about your project goals and expectations" required minlength="20" maxlength="2000"></textarea>
+                <div class="invalid-feedback">Please provide at least 20 characters in your message.</div>
+              </div>
+
+              <div class="col-12 form-check mt-1">
+                <input class="form-check-input" type="checkbox" id="privacyConsent" name="privacyConsent" required>
+                <label class="form-check-label" for="privacyConsent">I agree to be contacted about this project inquiry.</label>
+                <div class="invalid-feedback">Please confirm your consent to continue.</div>
+              </div>
             </div>
-            <div class="mb-3">
-              <label for="email" class="form-label">Your Email</label>
-              <input type="email" class="form-control" id="email" placeholder="Enter your email">
-            </div>
-            <div class="mb-3">
-              <label for="subject" class="form-label">Subject</label>
-              <input type="text" class="form-control" id="subject" placeholder="Enter subject">
-            </div>
-            <div class="mb-3">
-              <label for="message" class="form-label">Message</label>
-              <textarea class="form-control" id="message" rows="5" placeholder="Enter your message"></textarea>
-            </div>
-            <button type="submit" class="btn btn-custom">Send Message</button>
+
+            <div id="formStatus" class="form-status" role="status" aria-live="polite"></div>
+            <button type="submit" class="btn btn-custom mt-3">Send Message</button>
           </form>
         </div>
       </div>

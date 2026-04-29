@@ -88,4 +88,72 @@ setupRevealObserver();
 setupHeroParallax();
 updateNavbarState();
 
+function encodeFormData(formData) {
+  return Array.from(formData.entries())
+    .map(([key, value]) => `${encodeURIComponent(key)}=${encodeURIComponent(value)}`)
+    .join('&');
+}
+
+function attachContactFormHandler() {
+  const contactForm = document.getElementById('contactForm');
+  const formStatus = document.getElementById('formStatus');
+
+  if (!contactForm || !formStatus) {
+    return;
+  }
+
+  const setStatus = (message, type) => {
+    formStatus.textContent = message;
+    formStatus.className = `form-status ${type}`;
+  };
+
+  contactForm.addEventListener('submit', async (event) => {
+    event.preventDefault();
+
+    contactForm.classList.add('was-validated');
+
+    if (!contactForm.checkValidity()) {
+      setStatus('Please fix the highlighted fields and try again.', 'error');
+      return;
+    }
+
+    const submitButton = contactForm.querySelector('button[type="submit"]');
+    const originalButtonText = submitButton ? submitButton.textContent : '';
+
+    if (submitButton) {
+      submitButton.disabled = true;
+      submitButton.textContent = 'Sending...';
+    }
+
+    try {
+      const formData = new FormData(contactForm);
+
+      const response = await fetch('/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: encodeFormData(formData)
+      });
+
+      if (!response.ok) {
+        throw new Error('Request failed');
+      }
+
+      contactForm.reset();
+      contactForm.classList.remove('was-validated');
+      setStatus('Thank you. Your message has been sent successfully.', 'success');
+    } catch (error) {
+      setStatus('There was a problem sending your message. Please try again in a moment.', 'error');
+    } finally {
+      if (submitButton) {
+        submitButton.disabled = false;
+        submitButton.textContent = originalButtonText;
+      }
+    }
+  });
+}
+
+attachContactFormHandler();
+
 

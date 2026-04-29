@@ -1129,6 +1129,75 @@ body {
   color: #fff;
 }
 
+/* CONTACT FORM */
+.contact-form {
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 24px;
+  box-shadow: 0 14px 34px rgba(15, 92, 92, 0.1);
+}
+
+.contact-form .form-label {
+  color: #24373a;
+  font-weight: 600;
+}
+
+.contact-form .form-control,
+.contact-form .form-select {
+  border: 1px solid #d4dfdf;
+  border-radius: 12px;
+  padding: 12px 14px;
+  min-height: 48px;
+}
+
+.contact-form textarea.form-control {
+  min-height: 140px;
+  resize: vertical;
+}
+
+.contact-form .form-control:focus,
+.contact-form .form-select:focus,
+.contact-form .form-check-input:focus {
+  border-color: var(--teal);
+  box-shadow: 0 0 0 0.2rem rgba(15, 92, 92, 0.12);
+}
+
+.contact-form .form-check {
+  padding-left: 1.8rem;
+}
+
+.contact-form .form-check-label {
+  color: #374a4d;
+  font-size: 14px;
+}
+
+.contact-form .invalid-feedback {
+  font-size: 13px;
+}
+
+.form-status {
+  display: none;
+  margin-top: 14px;
+  border-radius: 10px;
+  padding: 10px 12px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.form-status.success {
+  display: block;
+  background: #eaf7f2;
+  color: #105638;
+  border: 1px solid #b8e0cd;
+}
+
+.form-status.error {
+  display: block;
+  background: #fff1f1;
+  color: #8f1f2a;
+  border: 1px solid #efc5ca;
+}
+
 @media (max-width: 991px) {
   .end-contact-card {
     grid-template-columns: 1fr;
@@ -1436,6 +1505,30 @@ body {
 @media(max-width:768px){
   .hero-text h1 {font-size:36px;}
 
+  .section-gap {
+    padding: 72px 0;
+  }
+
+  .section-title,
+  #about .section-header h2,
+  .services-section h2,
+  .skills-tools-section .section-header h2,
+  .testimonials-section .section-header h2,
+  .latest-works h2 {
+    font-size: 34px;
+  }
+
+  .navbar .btn-cta {
+    margin-top: 10px;
+    width: 100%;
+    text-align: center;
+  }
+
+  .contact-form {
+    padding: 18px;
+    border-radius: 16px;
+  }
+
   .img-bg {
     width:200px;
     height:260px;
@@ -1444,6 +1537,17 @@ body {
 
   .hero-img {
     width:200px;
+  }
+}
+
+@media (max-width: 480px) {
+  .contact-form .form-label {
+    font-size: 14px;
+  }
+
+  .contact-form .form-control,
+  .contact-form .form-select {
+    font-size: 14px;
   }
 }
 
