@@ -289,31 +289,58 @@
       <div class="end-contact-header">
         <h2>We Build Brands That Feel Better Together.</h2>
       </div>
-      <div class="end-contact-card">
+      <div class="end-contact-card trend-bento-card">
         <div class="end-contact-brand">
           <img src="images/logo3.png" alt="Creative designs logo">
           <h3>Creative designs</h3>
           <p>Hello there. Let's create a clear, modern brand experience that truly reflects your vision.</p>
           <a href="contact.html" class="btn btn-custom">Get in Touch</a>
         </div>
-        <form class="end-contact-form" action="contact.html">
-          <label>First and Last Name*
-            <input type="text" name="fullName" placeholder="Your full name">
-          </label>
-          <label>Email*
-            <input type="email" name="email" placeholder="Your email">
-          </label>
-          <label>What kind of design magic are you looking for?
-            <select name="service">
-              <option>Brand Identity</option>
-              <option>Website Design</option>
-              <option>UX/UI Design</option>
-              <option>Other</option>
-            </select>
-          </label>
-          <label>Your Message
-            <textarea name="message" rows="4" placeholder="Tell me about your project"></textarea>
-          </label>
+        <form class="end-contact-form contact-form" method="POST" action="https://api.web3forms.com/submit" novalidate data-success-url="contact-success.html" data-web3form>
+          <input type="hidden" name="access_key" value="ccad3b88-552f-49ee-a11b-b355660614be">
+          <input type="hidden" name="from_name" value="Monica Portfolio Homepage Form">
+          <input type="hidden" name="replyto" value="">
+          <input type="hidden" name="project_subject" value="Homepage collaboration request">
+          <input type="checkbox" name="botcheck" class="d-none" tabindex="-1" autocomplete="off">
+
+          <label for="homeFullName">First and Last Name*</label>
+          <input id="homeFullName" type="text" name="fullName" placeholder="Your full name" required minlength="2" maxlength="80" autocomplete="name">
+          <div class="invalid-feedback">Please enter your full name.</div>
+
+          <label for="homeEmail">Email*</label>
+          <input id="homeEmail" type="email" name="email" placeholder="Your email" required maxlength="120" autocomplete="email">
+          <div class="invalid-feedback">Please enter a valid email address.</div>
+
+          <label for="homePhone">Phone Number*</label>
+          <input id="homePhone" type="tel" name="phone" placeholder="e.g. +353 89 123 4567" required pattern="^[0-9+()\-\s]{7,20}$" maxlength="20" autocomplete="tel">
+          <div class="invalid-feedback">Please enter a valid phone number.</div>
+
+          <label for="homeService">What kind of design magic are you looking for?</label>
+          <select id="homeService" name="service" required>
+            <option value="">Select a service</option>
+            <option value="brand-identity">Brand Identity</option>
+            <option value="website-design">Website Design</option>
+            <option value="ux-ui-design">UX/UI Design</option>
+            <option value="social-media">Social Media Design</option>
+            <option value="other">Other</option>
+          </select>
+          <div class="invalid-feedback">Please choose a service.</div>
+
+          <label for="homeBudget">Estimated Budget*</label>
+          <select id="homeBudget" name="budget" required>
+            <option value="">Select budget</option>
+            <option value="under-1k">Under EUR 1,000</option>
+            <option value="1k-3k">EUR 1,000 - 3,000</option>
+            <option value="3k-5k">EUR 3,000 - 5,000</option>
+            <option value="5k-plus">EUR 5,000+</option>
+          </select>
+          <div class="invalid-feedback">Please select your budget.</div>
+
+          <label for="homeMessage">Your Message</label>
+          <textarea id="homeMessage" name="message" rows="4" placeholder="Tell me about your project" required minlength="20" maxlength="2000"></textarea>
+          <div class="invalid-feedback">Please provide at least 20 characters.</div>
+
+          <div class="form-status" role="status" aria-live="polite"></div>
           <button type="submit" class="btn end-contact-btn">Get at Me</button>
         </form>
       </div>
@@ -363,15 +390,6 @@
               <div>
                 <p class="contact-label">Email</p>
                 <p class="contact-value">monica.ramsis1@gmail.com</p>
-
-
-                <form action="https://api.web3forms.com/submit" method="POST">
-  <input type="hidden" name="access_key" value="ccad3b88-552f-49ee-a11b-b355660614be">
-  <input type="text" name="name" required>
-  <input type="email" name="email" required>
-  <textarea name="message" required></textarea>
-  <button type="submit">Submit</button>
-</form>     
               </div>
             </div>
           </div>

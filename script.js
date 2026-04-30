@@ -88,72 +88,130 @@ setupRevealObserver();
 setupHeroParallax();
 updateNavbarState();
 
-function encodeFormData(formData) {
-  return Array.from(formData.entries())
-    .map(([key, value]) => `${encodeURIComponent(key)}=${encodeURIComponent(value)}`)
-    .join('&');
-}
+function attachWeb3FormsHandlers() {
+  const forms = document.querySelectorAll('form[data-web3form]');
 
-function attachContactFormHandler() {
-  const contactForm = document.getElementById('contactForm');
-  const formStatus = document.getElementById('formStatus');
-
-  if (!contactForm || !formStatus) {
+  if (!forms.length) {
     return;
   }
 
-  const setStatus = (message, type) => {
-    formStatus.textContent = message;
-    formStatus.className = `form-status ${type}`;
-  };
+  const phonePattern = /^[0-9+()\-\s]{7,20}$/;
 
-  contactForm.addEventListener('submit', async (event) => {
-    event.preventDefault();
+  forms.forEach((form) => {
+    const formStatus = form.querySelector('.form-status');
 
-    contactForm.classList.add('was-validated');
-
-    if (!contactForm.checkValidity()) {
-      setStatus('Please fix the highlighted fields and try again.', 'error');
+    if (!formStatus) {
       return;
     }
 
-    const submitButton = contactForm.querySelector('button[type="submit"]');
-    const originalButtonText = submitButton ? submitButton.textContent : '';
+    const setStatus = (message, type) => {
+      formStatus.textContent = message;
+      formStatus.className = `form-status ${type}`;
+    };
 
-    if (submitButton) {
-      submitButton.disabled = true;
-      submitButton.textContent = 'Sending...';
-    }
+    const emailField = form.querySelector('input[name="email"]');
+    const replyToField = form.querySelector('input[name="replyto"]');
+    const phoneField = form.querySelector('input[name="phone"]');
+    const accessKeyField = form.querySelector('input[name="access_key"]');
+    const preferredMethodOptions = form.querySelectorAll('input[name="preferred_contact"]');
+    const firstPreferredMethod = preferredMethodOptions.length ? preferredMethodOptions[0] : null;
+    const successUrl = form.getAttribute('data-success-url') || 'contact-success.html';
 
-    try {
-      const formData = new FormData(contactForm);
+    const syncPreferredMethodValidity = () => {
+      if (!firstPreferredMethod) {
+        return;
+      }
 
-      const response = await fetch('/', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded'
-        },
-        body: encodeFormData(formData)
+      const hasSelection = Boolean(form.querySelector('input[name="preferred_contact"]:checked'));
+      firstPreferredMethod.setCustomValidity(hasSelection ? '' : 'Please choose a preferred contact method.');
+    };
+
+    preferredMethodOptions.forEach((option) => {
+      option.addEventListener('change', () => {
+        syncPreferredMethodValidity();
       });
+    });
 
-      if (!response.ok) {
-        throw new Error('Request failed');
-      }
-
-      contactForm.reset();
-      contactForm.classList.remove('was-validated');
-      setStatus('Thank you. Your message has been sent successfully.', 'success');
-    } catch (error) {
-      setStatus('There was a problem sending your message. Please try again in a moment.', 'error');
-    } finally {
-      if (submitButton) {
-        submitButton.disabled = false;
-        submitButton.textContent = originalButtonText;
-      }
+    if (emailField && replyToField) {
+      emailField.addEventListener('input', () => {
+        replyToField.value = emailField.value.trim();
+      });
     }
+
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+
+      syncPreferredMethodValidity();
+
+      if (phoneField) {
+        const hasValidPhone = phonePattern.test(phoneField.value.trim());
+        phoneField.setCustomValidity(hasValidPhone ? '' : 'Please enter a valid phone number.');
+      }
+
+      form.classList.add('was-validated');
+
+      if (!form.checkValidity()) {
+        setStatus('Please fix the highlighted fields and try again.', 'error');
+        return;
+      }
+
+      if (!accessKeyField || !accessKeyField.value || accessKeyField.value === 'YOUR_WEB3FORMS_ACCESS_KEY') {
+        setStatus('Web3Forms is not configured yet. Replace YOUR_WEB3FORMS_ACCESS_KEY with your real key to receive emails.', 'error');
+        return;
+      }
+
+      const submitButton = form.querySelector('button[type="submit"]');
+      const originalButtonText = submitButton ? submitButton.textContent : '';
+
+      if (submitButton) {
+        submitButton.disabled = true;
+        submitButton.textContent = 'Sending...';
+      }
+
+      try {
+        if (emailField && replyToField) {
+          replyToField.value = emailField.value.trim();
+        }
+
+        const formData = new FormData(form);
+        const projectSubject = String(formData.get('project_subject') || '').trim();
+        const fallbackSubject = String(formData.get('subject') || '').trim();
+
+        formData.set('replyto', replyToField ? replyToField.value : '');
+        formData.set('subject', projectSubject ? `Portfolio inquiry: ${projectSubject}` : (fallbackSubject || 'Portfolio inquiry from website form'));
+
+        const response = await fetch(form.action, {
+          method: 'POST',
+          headers: {
+            Accept: 'application/json'
+          },
+          body: formData
+        });
+
+        const result = await response.json().catch(() => null);
+
+        if (!response.ok || !result || !result.success) {
+          throw new Error(result && result.message ? result.message : 'Request failed');
+        }
+
+        form.reset();
+        form.classList.remove('was-validated');
+        setStatus('Thank you. Your message has been sent successfully.', 'success');
+        window.setTimeout(() => {
+          window.location.href = successUrl;
+        }, 600);
+      } catch (error) {
+        setStatus('There was a problem sending your message. Please try again in a moment.', 'error');
+      } finally {
+        if (submitButton) {
+          submitButton.disabled = false;
+          submitButton.textContent = originalButtonText;
+        }
+      }
+    });
   });
 }
 
-attachContactFormHandler();
+attachWeb3FormsHandlers();
 
 
