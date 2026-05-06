@@ -1,22 +1,29 @@
 # Deployment Guide
 
-This portfolio is ready for static hosting with a Web3Forms-powered contact form.
+This portfolio is ready for static hosting. Recommended host: Netlify (works with the contact form without a backend).
 
-## Before Deploying
+## Local Preview vs Live Website
 
-1. Create a free Web3Forms account and get an access key for `monica.ramsis1@gmail.com`.
-2. In `contact.html`, replace `YOUR_WEB3FORMS_ACCESS_KEY` with your real key.
-3. Commit and push the change.
+`Go Live` in VS Code starts a local development server on your own machine, so it opens a localhost or `127.0.0.1` URL such as `http://127.0.0.1:5500/contact.html`.
 
-## Option A: Netlify
+This local preview URL cannot be changed into your GitHub Pages URL because `https://monicaramsis1-a11y.github.io/Monica-portfolio-website/contact.html` is a deployed remote site, not a local server.
+
+If you want to preview the same page locally, use Five Server with the included config so `Go Live` opens `contact.html` directly.
+
+If you want the public GitHub Pages link to show your latest edits, you must save, commit, push, and wait for GitHub Pages to redeploy.
+
+## Option A: Netlify (recommended)
 
 1. Push this project to a GitHub repository.
-2. In Netlify, choose Add new site -> Import an existing project.
-3. Connect GitHub and select the repository.
+2. Go to Netlify and choose Add new site -> Import an existing project.
+3. Connect your GitHub account and select the repository.
 4. Build settings:
    - Build command: leave empty
    - Publish directory: `.`
 5. Deploy the site.
+6. In Netlify dashboard, open Forms and verify a `contact` form is detected.
+7. Submit the live contact form once and confirm the submission appears in Netlify Forms.
+8. Optional: configure email notifications under Forms -> Settings.
 
 ## Option B: GitHub Pages
 
@@ -25,9 +32,11 @@ This portfolio is ready for static hosting with a Web3Forms-powered contact form
 3. Deploy from branch: `main` and folder `/ (root)`.
 4. Wait for deployment and open the generated Pages URL.
 
+Note: GitHub Pages does not process Netlify form submissions. For a fully functional contact form without backend code, use Netlify hosting.
+
 ## Post-Deployment Checks
 
 1. Verify pages load over HTTPS.
 2. Check navigation links on all pages.
-3. Submit the contact form and confirm the message arrives at `monica.ramsis1@gmail.com`.
-4. Test validation on invalid inputs and mobile widths (360px, 390px, 768px).
+3. Test the contact form validation and successful submission.
+4. Test on mobile widths (360px, 390px, 768px) and desktop.
