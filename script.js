@@ -107,13 +107,53 @@ function attachContactFormHandler() {
     formStatus.className = `form-status ${type}`;
   };
 
+  const emailField = contactForm.querySelector('input[name="email"]');
+  const replyToField = contactForm.querySelector('input[name="replyto"]');
+  const phoneField = contactForm.querySelector('input[name="phone"]');
+  const accessKeyField = contactForm.querySelector('input[name="access_key"]');
+  const preferredMethodOptions = contactForm.querySelectorAll('input[name="preferred_contact"]');
+  const firstPreferredMethod = preferredMethodOptions.length ? preferredMethodOptions[0] : null;
+  const successUrl = contactForm.getAttribute('data-success-url') || 'contact-success.html';
+  const phonePattern = /^[0-9+()\-\s]{7,20}$/;
+
+  const syncPreferredMethodValidity = () => {
+    if (!firstPreferredMethod) {
+      return;
+    }
+
+    const hasSelection = Boolean(contactForm.querySelector('input[name="preferred_contact"]:checked'));
+    firstPreferredMethod.setCustomValidity(hasSelection ? '' : 'Please choose a preferred contact method.');
+  };
+
+  preferredMethodOptions.forEach((option) => {
+    option.addEventListener('change', syncPreferredMethodValidity);
+  });
+
+  if (emailField && replyToField) {
+    emailField.addEventListener('input', () => {
+      replyToField.value = emailField.value.trim();
+    });
+  }
+
   contactForm.addEventListener('submit', async (event) => {
     event.preventDefault();
+
+    syncPreferredMethodValidity();
+
+    if (phoneField) {
+      const hasValidPhone = phonePattern.test(phoneField.value.trim());
+      phoneField.setCustomValidity(hasValidPhone ? '' : 'Please enter a valid phone number.');
+    }
 
     contactForm.classList.add('was-validated');
 
     if (!contactForm.checkValidity()) {
       setStatus('Please fix the highlighted fields and try again.', 'error');
+      return;
+    }
+
+    if (!accessKeyField || !accessKeyField.value) {
+      setStatus('The contact form is not configured correctly yet. Add a valid Web3Forms access key.', 'error');
       return;
     }
 
@@ -128,21 +168,34 @@ function attachContactFormHandler() {
     try {
       const formData = new FormData(contactForm);
 
-      const response = await fetch('/', {
+      if (emailField && replyToField) {
+        replyToField.value = emailField.value.trim();
+      }
+
+      const projectSubject = String(formData.get('project_subject') || '').trim();
+      formData.set('replyto', replyToField ? replyToField.value : '');
+      formData.set('subject', projectSubject ? `Portfolio inquiry: ${projectSubject}` : 'Portfolio inquiry from website form');
+
+      const response = await fetch(contactForm.action, {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/x-www-form-urlencoded'
+          Accept: 'application/json'
         },
-        body: encodeFormData(formData)
+        body: formData
       });
 
-      if (!response.ok) {
-        throw new Error('Request failed');
+      const result = await response.json().catch(() => null);
+
+      if (!response.ok || !result || !result.success) {
+        throw new Error(result && result.message ? result.message : 'Request failed');
       }
 
       contactForm.reset();
       contactForm.classList.remove('was-validated');
       setStatus('Thank you. Your message has been sent successfully.', 'success');
+      window.setTimeout(() => {
+        window.location.href = successUrl;
+      }, 600);
     } catch (error) {
       setStatus('There was a problem sending your message. Please try again in a moment.', 'error');
     } finally {
